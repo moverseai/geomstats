@@ -763,7 +763,7 @@ class HypersphereMetric(RiemannianMetric):
             of point at the base point.
         """
         inner_prod = self._space.embedding_space.metric.inner_product(base_point, point)
-        cos_angle = gs.clip(inner_prod, -1.0, 1.0)
+        cos_angle = gs.clip(inner_prod, -1.0 + 1e-7, 1.0 - 1e-7)
         squared_angle = gs.arccos(cos_angle) ** 2
         coef_1_ = utils.taylor_exp_even_func(
             squared_angle, utils.inv_sinc_close_0, order=5
